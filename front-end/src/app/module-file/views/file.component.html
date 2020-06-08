@@ -1,0 +1,197 @@
+<div class="entity">
+    <h2>{{getLabel('LABELSTUDENTFILE')}}</h2>                 
+    <hr/>
+    <br/>
+    
+    <form #studentForm="ngForm" novalidate="">
+    
+    <!-- FORM ADD UPDATE USER -->
+    <div *ngIf="getMode() === 'form'" class="linedBox">
+        <ul>        
+  
+          <br class="clear">
+
+          <!-- FIELDS HIDDENS, DNI, NAME AND SURNAME -->
+          <li>        
+            <div class="formulaire">                    
+              <!--
+                input type="hidden" name="input.index" #index="ngModel" [(ngModel)]="index" />
+                <input type="hidden" name="input.id" #id="ngModel" [(ngModel)]="id" />
+              -->
+              
+          <table class="tnovisual">
+            <col width="160"><col width="*">
+            <tr><td>
+                <img src="../../../assets/{{namePicture}}" alt="" width="150"/>
+            </td><td>         
+
+              <!--DNI-->              
+                <div class="col input-component" (click)="showLabel('dni')">
+                    <label for="inputDni" class="">{{getLabel('LABELDNI')}} *</label>
+                    <input type="text" id="inputDni" disabled    
+                        [(ngModel)]='studentDni' name="inputDni" #inputDni="ngModel"
+                        maxlength="38" (focus)="showLabel('dni')" (blur)="blurLabel('dni')"/>                            
+                </div>                                           
+                <div *ngIf="this.dniEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+                <div *ngIf="this.dniNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+              <!--END DNI-->       
+              
+              <!--NAME-->              
+              <div class="col input-component" (click)="showLabel('name')">
+              <label for="inputName" class="">{{getLabel('LABELNAME')}} *</label>
+              <input type="text" id="inputName" disabled  
+                  [(ngModel)]='studentName' name="inputName" #inputDni="ngModel"
+                  maxlength="38" (focus)="showLabel('name')" (blur)="blurLabel('name')"/>                            
+              </div>                                           
+              <div *ngIf="this.nameEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+              <div *ngIf="this.nameNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+            <!--END NAME-->       
+        
+              <!--SURNAME-->              
+              <div class="col input-component" (click)="showLabel('surname')">
+              <label for="inputName" class="">{{getLabel('LABELSURNAME')}} *</label>
+              <input type="text" id="inputSurname" disabled   
+                  [(ngModel)]='studentSurname' name="inputSurname" #inputSurname="ngModel"
+                  maxlength="38" (focus)="showLabel('surname')" (blur)="blurLabel('surname')"/>                            
+              </div>                                           
+              <div *ngIf="this.surnameEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+              <div *ngIf="this.surnameNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+            <!--END SURNAME-->      
+
+            </td>
+            <tr><td colspan="2">
+
+            <!--RESPONSABLE1-->
+            <div class="col input-component">
+              <label for="inpuNameResponsable1" class="">{{getLabel('LABELRESP1')}}</label>
+                <input type="text" id="inpuNameResponsable1" disabled
+                [(ngModel)]='nameResponsable1' name="inpuNameResponsable1" #inputIdResponsable1="ngModel"
+                maxlength="38" (focus)="showLabel('nameResponsable1')" (blur)="blurLabel('nameResponsable1')"/>
+              </div>         
+            <!--END RESPONSABLE1-->
+            
+            <!--RESPONSABLE2-->
+            <div class="col input-component">
+              <label for="inpuNameResponsable2" class="">{{getLabel('LABELRESP2')}}</label>
+                <input type="text" id="inpuNameResponsable2" disabled
+                [(ngModel)]='nameResponsable2' name="inpuNameResponsable2" #inputIdResponsable2="ngModel"
+                maxlength="38" (focus)="showLabel('nameResponsable2')" (blur)="blurLabel('nameResponsable2')"/>
+            </div>                     
+            <!--END RESPONSABLE2--> 
+            
+            <!-- INTOLERANCES -->
+            <div class="col input-component" style="height:auto !important;">
+              <label for="inputintolerances" class="">{{getLabel('LABELINTOLERANCES')}}</label>     
+              <ul>                    
+                <li *ngFor="let intolerance of intolerancesArray" class="listElements">· {{intolerance.getName()}}</li>
+              </ul>
+            </div>
+            <!-- END INTOLERANCES -->
+
+            <hr/>
+             <!-- FORM TITTLE -->
+            <li>          
+              <div class="formtitle">
+                  <div class="divh3action"><h4>{{getLabel('LABELTODAYSREG')}}</h4></div>                                  
+              </div>
+            </li>
+
+            <!-- DEPOSITIONS -->
+            <div class="col input-component">
+              <label for="inputDepositions" class="">{{getLabel('LABELNUMBERDEP')}}</label>
+                <input type="text" id="inputDepositions" 
+                [(ngModel)]='depositions' name="inputDepositions" #inputDepositions="ngModel"
+                maxlength="38" (focus)="showLabel('depositions')" (blur)="blurLabel('depositions')"/>
+            </div>  
+            <!-- END DEPOSITIONS -->
+
+            <!-- MEAL -->
+            <div class="col input-component">
+              <label for="inputComment" class="">{{getLabel('LABELMEAL')}}</label>
+                <table class="tnovisual">
+                <colgroup><col><col></colgroup>                    
+                  <tr><td>
+                  <div *ngIf="this.isSelectingMeal() === false && this.isUpdating() === true" >
+                    <input type="text" id="inputNameMeal" disabled
+                      [(ngModel)]='nameMeal' name="inputNameMeal" #inputNameMeal="ngModel"
+                      maxlength="38" (focus)="showLabel('nameMeal')" (blur)="blurLabel('nameMeal')"/>
+                  </div>                    
+                  <div *ngIf="this.isSelectingMeal() === true || this.isUpdating() === false">
+                    <select name="type" [(ngModel)]="mealSelected">
+                      <option [ngValue]="1">Little</option>
+                      <option [ngValue]="2">Normal</option>
+                      <option [ngValue]="3">All</option>
+                    </select>   
+                  </div>
+                  </td>
+                  <td class="btnth">
+                    <button class="btn btn-primary btnsmall" (click)="selectMeal();"><span>M</span></button>
+                  </td></tr>
+                </table>                 
+            </div>
+            <!-- MEAL -->
+
+            <!-- NAP -->
+            <div class="col input-component">
+              <label for="inputNap" class="">{{getLabel('LABELNAP')}}</label>
+                <table class="tnovisual">
+                  <colgroup><col><col></colgroup>                    
+                    <tr><td>
+                    <div *ngIf="this.isSelectingNap() === false && this.isUpdating() === true" >
+                      <input type="text" id="inputNameNap" disabled
+                        [(ngModel)]='nameNap' name="inputNameNap" #inputNameNap="ngModel"
+                        maxlength="38" (focus)="showLabel('nameNap')" (blur)="blurLabel('nameNap')"/>
+                    </div>                    
+                    <div *ngIf="this.isSelectingNap() === true || this.isUpdating() === false">
+                      <select name="type" [(ngModel)]="napSelected">
+                        <option [ngValue]="1">Yes</option>
+                        <option [ngValue]="2">No</option>
+                      </select> 
+                    </div>
+                    </td>
+                    <td class="btnth">
+                      <button class="btn btn-primary btnsmall" (click)="selectNap();"><span>M</span></button>
+                    </td></tr>
+                  </table> 
+            </div>
+            <!-- NAP -->
+
+            <!-- REMARKS -->
+            <div class="col input-component">
+              <label for="inputRemarks" class="">{{getLabel('LABELREMARKS')}}</label>                
+                <textarea type="text" id="inputRemarks" cols="40" rows="5" 
+                [(ngModel)]='remarks' name="inputRemarks" #inputRemarks="ngModel"
+                maxlength="38" (focus)="showLabel('remarks')" (blur)="blurLabel('remarks')">
+                </textarea>
+            </div>  
+            <!-- END REMARKS -->
+
+
+          </td></tr></table>    
+
+        </div>                    
+        <br class="clear"/>
+
+            <!--BOUTTON UPDATE-->
+            <div class="fright">           
+              <button class="btn btn-primary" (click)="updateTodaysRegister();"><span>{{getLabel('LABELUPDATE')}}</span></button>  
+              <button class="btn btn-secondary" (click)="cancel();"><span>{{getLabel('LABELCANCEL')}}</span></button>  
+            </div>
+            <!--END BOUTTON UPDATE-->
+  
+            <br class="clear">
+
+          </li>
+          <!-- END HIDDENS AND PASSWORD -->
+  
+        </ul>       
+      </div>
+      <!-- FIN FORM ADD UPDATE USER -->	
+
+    <!--PAGINATION-->
+    <!-- TODO -->
+    <!--END PAGINATION-->
+
+    </form>
+
+</div>

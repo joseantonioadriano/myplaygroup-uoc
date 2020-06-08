@@ -1,0 +1,312 @@
+<div *ngIf="this.isUserLogged()===true" >
+       
+    <!-- PANE FOR SUPERADMIN -->              
+    <div *ngIf="this.getUserType()==TSUPERADMIN" >
+
+        <!--STUDENTS-->              
+        <div class="col input-component">                
+            <table class="tnovisual">
+            <colgroup><col><col></colgroup>                    
+            <tr><td>
+            <div *ngIf="this.isSelectingStudent() === false" >
+                <input type="text" id="inpuNameStudent" disabled
+                [(ngModel)]='completeNameStudent' name="inpuNameStudent" #inputIdStudent="ngModel"
+                maxlength="38" />
+            </div>                    
+            <div *ngIf="this.isSelectingStudent() === true">
+                <select [(ngModel)]="studentSelected" name="studentSelect" (change)="updateStudentSelected();">
+                <option [ngValue]="studentSelect" *ngFor="let studentSelect of studentsArray">
+                    {{studentSelect.getName()}} {{studentSelect.getSurname()}}
+                </option>
+                </select>    
+            </div>
+            </td>
+            <td class="btnth">
+                <button *ngIf="this.multiStudents()===true" class="btn btn-primary btnsmall" (click)="selectStudent();"><span>M</span></button>
+            </td></tr>
+            </table>
+        </div>                                                       
+        <!--END STUDENTS-->         
+
+        <!--STUDENT FILE -->
+        <div class="col input-component mainpanecomponent" style="height:160px;">
+            <table class="tnovisual">
+            <tr>
+                <td width="160">
+                    <img src="../../../assets/{{namePicture}}" alt="" width="150"/>
+                </td>
+                <td>
+                    <table class="tnovisual">
+                    <tr>
+                        <td>
+                            <h2>{{nameStudent}} {{surnameStudent}}</h2>
+                            <h3>{{age}} años</h3>                        
+                            <h4>intolerances: <span *ngFor="let intolerance of intolerancesArray">{{intolerance.getName()}} </span></h4>                            
+                            <h4>Tutor: {{nameTutor}}</h4>                        
+                            <h4>Grupo: {{nameGroup}}</h4>                            
+                        </td>
+                    </tr>
+                    </table>                
+                </td>
+            </tr>
+            </table>
+        </div>
+        <!--END STUDENT FILE -->
+        <br class="clear">
+
+        <!--TODAYS REGISTER-->              
+        <div class="col input-component mainpanecomponent" style="height:110px;">
+            <h3>Registro de hoy</h3>
+            · {{depositions}} deposiciones<br/>
+            <span *ngIf="this.meal == 1">
+            · Ha comido poco
+            </span>
+            <span *ngIf="this.meal == 2">
+            · Ha comido bien
+            </span>    
+            <span *ngIf="this.meal == 3">
+            · Se ha comido todo
+            </span>                    
+            <span *ngIf="this.naps == 1">
+            · Ha dormido la siesta
+            </span>
+            <span *ngIf="this.naps == 2">
+            · No ha dormido la siesta
+            </span>
+            <span *ngIf="this.remarks != ''">
+            · {{remarks}}
+            </span><br/>
+        </div> 
+        <br class="clear" />
+
+        <!--APPOINTMENTS-->              
+        <div class="col input-component mainpanecomponent">
+            <h3>{{getLabel('LABELAPPOINTMENTS')}}</h3>
+            Nothing to show
+        </div>
+
+        <!--TODAYS MEAL-->                             
+        <div class="col input-component mainpanecomponent" style="height:380px;">
+            <h3>{{getLabel('LABELTODAYSMEALS')}}</h3>
+            <span class="bold">Breakfast</span>
+            {{getMealStudent(1)}}<br/>
+            <br/><span class="bold">Starter</span>
+            {{getMealStudent(2)}}<br/>
+            <br/><span class="bold">Main</span>
+            {{getMealStudent(3)}}<br/>
+            <br/><span class="bold">Dessert</span>
+            {{getMealStudent(4)}}<br/>
+            <br/><span class="bold">Snack</span>
+            {{getMealStudent(5)}}<br/>                
+            <br class="clear">
+        </div>
+
+        <!--STATISTICS
+        <div class="col input-component mainpanecomponent">
+            <h3>{{getLabel('LABELSTATISTICS')}}</h3>
+            Nothing to show
+        </div>-->              
+
+    </div>
+    <!-- END PANE FOR SUPERADMIN -->                   
+
+    <!-- PANE FOR ADMIN -->              
+    <div *ngIf="this.getUserType()==TADMIN" style="width:100%; min-height:300px;">
+
+        <!--APPOINTMENTS
+        <div class="col input-component mainpanecomponent">
+            <h3>Appointments</h3>
+            Nothing to show
+        </div>-->
+
+        <!--TODAY'S MENU-->              
+        <div class="col input-component mainpanecomponent" style="height:375px;">
+            <h3>{{getLabel('LABELTODAYSMENU')}}</h3>
+                <table class="tnovisual">            
+                    <colgroup><col><col><col><col><col><col></colgroup>
+                    <tr *ngFor="let group of groupsArray"><td colspan="6">
+                        <tr><td width="300"><br class="clear"/><h5>· {{group.getName()}}</h5></td></tr>
+                        <tr><td></td>
+                            <td width="200" class="bold">{{getLabel('LABELBREAKFAST')}}</td>
+                            <td width="200" class="bold">{{getLabel('LABELSTARTER')}}</td>
+                            <td width="200" class="bold">{{getLabel('LABELMAIN')}}</td>
+                            <td width="200" class="bold">{{getLabel('LABELDESSERT')}}</td>
+                            <td width="200" class="bold">{{getLabel('LABELSNACK')}}</td></tr>
+                        <tr *ngFor="let student of studentsGroupsArray">
+                            <td *ngIf="this.studentInGroup(group.getId(),student.getId()) === true" width="200">· {{student.getName()}} {{student.getSurname()}}</td>                                                    
+                            <td *ngIf="this.studentInGroup(group.getId(),student.getId()) === true" >{{getMealStudentGroup(1,group.getId(),student.getId())}}</td>                            
+                            <td *ngIf="this.studentInGroup(group.getId(),student.getId()) === true" >{{getMealStudentGroup(2,group.getId(),student.getId())}}</td>
+                            <td *ngIf="this.studentInGroup(group.getId(),student.getId()) === true" >{{getMealStudentGroup(3,group.getId(),student.getId())}}</td>
+                            <td *ngIf="this.studentInGroup(group.getId(),student.getId()) === true" >{{getMealStudentGroup(4,group.getId(),student.getId())}}</td>
+                            <td *ngIf="this.studentInGroup(group.getId(),student.getId()) === true" >{{getMealStudentGroup(5,group.getId(),student.getId())}}</td>
+                        </tr>            
+                    </td></tr>
+                </table>
+                <br class="clear">
+        </div>
+
+        <!--ALL GROUPS-->              
+        <div class="col input-component mainpanecomponent"  style="height:300px;">
+            <div *ngFor="let group of groupsArray">
+                <!--<div *ngIf="groupHasStudents(group) === true">-->
+                    <h3>{{group.getName()}}</h3>
+                    <ul>
+                        <li *ngFor="let student of studentsGroupsArray">
+                            <span *ngIf="this.studentInGroup(group.getId(),student.getId()) === true">
+                               · <a class="anchor" (click)="viewFile(student.getId())">{{student.getName()}} {{student.getSurname()}}</a>
+                            </span>
+                        </li>            
+                    </ul>
+                    <br class="clear">
+                <!--</div>-->                
+            </div>
+        </div>   
+
+    </div>
+    <!-- END PANE FOR ADMIN -->   
+
+    <!-- PANE FOR TEACHERS -->              
+    <div *ngIf="this.getUserType()==TTEACHER" >
+        
+        <!--TODAY'S MENU-->              
+        <div class="col input-component mainpanecomponent">
+            <h3>Today's menu</h3>
+            Nothing to show
+        </div>
+
+        <!--MY GROUP-->              
+        <div class="col input-component mainpanecomponent">
+            <h3>My Group</h3>
+            Nothing to show
+        </div>
+
+    </div>
+    <!-- END PANE FOR TEACHERS -->              
+
+    <!-- PANE FOR PSYCHOLOGISTS -->              
+    <div *ngIf="this.getUserType()==TPSYCHOLOGIST" >
+
+        <!--APPOINTMENTS
+        <div class="col input-component mainpanecomponent">
+            <h3>Appointments</h3>
+            Nothing to show
+        </div>-->
+
+    </div>
+    <!-- END PANE FOR PSYCHOLOGISTS -->   
+
+    <!-- PANE FOR PARENTS -->
+    <div *ngIf="this.getUserType()==TPARENT" >
+
+        <!--STUDENTS-->              
+        <div class="col input-component">                
+            <table class="tnovisual">
+            <colgroup><col><col></colgroup>                    
+            <tr><td>
+            <div *ngIf="this.isSelectingStudent() === false" >
+                <input type="text" id="inpuNameStudent" disabled
+                [(ngModel)]='completeNameStudent' name="inpuNameStudent" #inputIdStudent="ngModel"
+                maxlength="38" />
+            </div>                    
+            <div *ngIf="this.isSelectingStudent() === true">
+                <select [(ngModel)]="studentSelected" name="studentSelect" (change)="updateStudentSelected();">
+                <option [ngValue]="studentSelect" *ngFor="let studentSelect of studentsArray">
+                    {{studentSelect.getName()}} {{studentSelect.getSurname()}}
+                </option>
+                </select>    
+            </div>
+            </td>
+            <td class="btnth">
+                <button *ngIf="this.multiStudents()===true" class="btn btn-primary btnsmall" (click)="selectStudent();"><span>M</span></button>
+            </td></tr>
+            </table>
+        </div>                                                       
+        <!--END STUDENTS-->   
+
+        <!--STUDENT FILE -->
+        <div class="col input-component mainpanecomponent" style="height:160px;">
+            <table class="tnovisual">
+            <tr>
+                <td width="160">
+                    <img src="../../../assets/{{namePicture}}" alt="" width="150"/>
+                </td>
+                <td>
+                    <table class="tnovisual">
+                    <tr>
+                        <td>
+                            <h2>{{nameStudent}} {{surnameStudent}}</h2>
+                            <h3>{{age}} años</h3>                        
+                            <h4>intolerances: <span *ngFor="let intolerance of intolerancesArray">{{intolerance.getName()}} </span></h4>                            
+                            <h4>Tutor: {{nameTutor}}</h4>                        
+                            <h4>Grupo: {{nameGroup}}</h4>                            
+                        </td>
+                    </tr>
+                    </table>                
+                </td>
+            </tr>
+            </table>
+        </div>
+        <!--END STUDENT FILE -->
+        <br class="clear">
+
+        <!--TODAYS REGISTER-->              
+        <div class="col input-component mainpanecomponent" style="height:110px;">
+            <h3>Registro de hoy</h3>
+            · {{depositions}} deposiciones<br/>
+            <span *ngIf="this.meal == 1">
+            · Ha comido poco
+            </span>
+            <span *ngIf="this.meal == 2">
+            · Ha comido bien
+            </span>    
+            <span *ngIf="this.meal == 3">
+            · Se ha comido todo
+            </span>                    
+            <span *ngIf="this.naps == 1">
+            · Ha dormido la siesta
+            </span>
+            <span *ngIf="this.naps == 2">
+            · No ha dormido la siesta
+            </span>
+            <span *ngIf="this.remarks != ''">
+            · {{remarks}}
+            </span><br/>
+        </div> 
+        <br class="clear" />
+
+        <!--APPOINTMENTS          
+        <div class="col input-component mainpanecomponent">
+            <h3>{{getLabel('LABELAPPOINTMENTS')}}</h3>
+            Nothing to show
+        </div>-->              
+
+        <!--TODAYS MEAL-->                             
+        <div class="col input-component mainpanecomponent" style="height:380px;">
+            <h3>{{getLabel('LABELTODAYSMEALS')}}</h3>
+            <span class="bold">Breakfast</span>
+            {{getMealStudent(1)}}<br/>
+            <br/><span class="bold">Starter</span>
+            {{getMealStudent(2)}}<br/>
+            <br/><span class="bold">Main</span>
+            {{getMealStudent(3)}}<br/>
+            <br/><span class="bold">Dessert</span>
+            {{getMealStudent(4)}}<br/>
+            <br/><span class="bold">Snack</span>
+            {{getMealStudent(5)}}<br/>                
+            <br class="clear">
+        </div>
+
+        <!--STATISTICS
+        <div class="col input-component mainpanecomponent">
+            <h3>{{getLabel('LABELSTATISTICS')}}</h3>
+            Nothing to show
+        </div>-->              
+
+    </div>    
+    <!-- END PANE FOR PARENTS -->                 
+
+    <!-- PANE FOR DEMO -->              
+    <div *ngIf="this.getUserType()==TDEMO" ></div>
+    <!-- END PANE FOR DEMO -->             
+
+</div>

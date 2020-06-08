@@ -1,0 +1,382 @@
+@font-face {
+	font-family: "Skrawk-Serif";
+	src: url("../../../assets/Skrawk-Serif.otf");
+}
+@font-face {
+	font-family: "TragicMarker";
+	src: url("../../../assets/TragicMarker.otf");
+}
+
+
+
+//body, 
+h1, h2, h3, h4, h5
+//div
+{font-family: "TragicMarker"; color: grey; }
+
+.fixed {position: fixed !important; width:25% !important; }
+.latMenu {background-color: #007bff; float:left; padding-left:7% !important; padding-right:7% !important; min-height:1500px !important; max-height:100% !important;}
+.patternTable {border:0 !important}
+.patternTable tr {border:0 !important}
+.latMenutd {background-color: #007bff; height:900px !important;}
+.latMenutd ul {color: white;}
+.latMenutd li {color: white; padding-left:10%; padding-right:10%; margin-bottom:5px !important}
+.latMenutd a {color: white;}
+.latArrow {min-height:900px !important; max-height:100%; float:left; }
+.latArrowInside {background-color: #007bff; height:50px;}
+.latArrowInside a {color: white;}
+.mainPanel {width:80%;float:right;}
+.mainPanel100 {width:100%;float:left;}
+
+.mainpanecomponent {
+	margin-bottom:30px !important;
+}
+
+.ulh {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ulh li {	
+	float: left; 
+	padding-left:10px;
+}
+
+.tnovisual {
+	border:0;
+}
+
+.bold{
+	font-weight: bold !important;
+	color: grey;
+}
+
+.anchor:hover{
+	cursor: pointer;
+	color: blue !important;
+}
+
+.tnovisual tr {
+	border:0;
+}
+
+.tnovisual tr td input {
+	width:100%
+}
+.tnovisual tr td select {
+	width:100%
+}
+
+.fright {
+	float:right;
+}
+
+.fleft {
+	float:left;
+}
+
+.clear {
+	clear:both
+}
+
+.title {
+	font-family: "Skrawk-Serif" !important;	
+	font-size: 60px;
+	color:#007bff;
+	width:100%;
+	text-align:center !important;
+}
+
+.letterRed{color:#FF0300;}
+.letterBlue{color:#007bff;}
+.letterGreen{color:green;}
+.letterYellow{color:#FFF000;}
+.letterPink{color:#FF007C;}
+.letterGrey{color:grey;}
+.letterLime{color:yellowgreen;}
+.letterOrange{color:orange;}
+
+.namekindergarten {
+	width:100%;
+	text-align: center !important;
+	color:red !important;
+}
+
+.footuni {
+	text-align:center;
+	padding: 15px 0 0 25px;
+	color: grey;
+}
+
+.foot {
+	text-align:center;
+	font-size:11px;
+	margin-bottom: 20px;
+	color: grey;
+}
+
+.divh3action {
+	padding:10px 20px 0 20px;
+	margin-bottom:20px !important;
+}
+
+li {
+	list-style:none;	
+}
+
+.headerEntity {
+    padding: 15px 25px 15px 25px;
+}
+
+.entity {
+    padding: 0 25px 0 25px !important;
+}
+
+.project {
+	margin: 10px;
+}
+
+.formtitle h3 {
+	text-align: center;		
+}	
+
+table {
+	width: 100%;
+	border: 1px solid grey;
+}
+
+th {
+	text-align: left;
+	font-weight: bold;
+	background-color: grey;
+	color: white;
+	padding: 5px !important;
+}
+
+tr {
+	border: 1px solid grey;
+}
+
+td {
+	text-align: left;
+	padding: 0 5px 0 5px !important;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.col{
+	display: flex;
+	flex-direction: column;
+}	
+
+ul, li{ 
+	padding: 0;    
+	margin: 0;
+}
+
+.input-component {
+    height: 60px;
+    background-color: white;
+    border-radius: 10px;	
+    margin-bottom: 10px;
+    label {
+        line-height: 20px;
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: 500;	 
+		text-align: left;
+	}
+}
+
+.input-error{
+    color: red;
+    border-radius: 10px;	
+	margin-bottom:15px;
+}
+
+.formulaire {
+	margin-bottom: 25px;
+}
+
+.searchBox {
+	//width: 100%;
+	padding: 10px;
+	border: 1px solid grey;
+    margin-bottom: 10px;
+    //margin-left:25px;
+    //margin-right:25px;
+}
+
+.linedBox {
+	//width: 100%;
+	padding: 10px 10px 20px 10px ;
+	border: 1px solid grey;
+    margin-bottom: 10px;
+    //margin-left:25px;
+    //margin-right:25px;
+}
+
+.lineBlue {
+	background-color: #c2e3f2;
+	font-style: italic;
+}
+
+.lineWhite {
+	background-color: #fff;
+	font-style: italic;
+}
+
+.horizontal li {
+	display:inline;
+	margin-right:10px;
+}
+
+.btn {
+	margin-right: 10px !important;
+}
+
+// ICONS
+
+.icon--edit {  		
+	background-repeat: no-repeat;
+	background-position: center;
+	width:20px;
+	height:20px;
+	border-radius:20px;
+}
+
+.icon--edit::after {
+	content:'M';  
+}
+
+.icon--del {
+	width:20px;
+	height:20px;
+	font-size: 15px;
+}
+
+.icon--del::after {
+	content:'D';
+}
+
+.icon--edit,.icon--del:hover{
+	cursor:pointer;
+}
+
+
+.btnsmall {
+	width:20px !important;
+	height:20px !important;
+	margin: 5px 0 5px 0 !important;
+	padding: 0 !important;
+	font-size: 11px !important;
+	font-weight: bold !important;	
+}
+
+.btnth {
+	width:25px;
+}
+
+.pagination {
+	width: 100%;
+	padding: 5px;
+	margin-bottom:10px;
+}
+
+
+.vdp-datepicker {
+	margin-left: 40px;
+	.vdp-datepicker__calendar {
+	  position: relative !important;
+	  z-index: unset !important;
+	  margin-top: 16px;
+	  width: 372px;
+	  // left: 16px;
+	  border-radius: 10px;
+	  margin-left: 50px;
+	  &.open {
+		display: block !important;
+	  }
+	  &.close {
+		display: none !important;
+	  }
+	  header {
+		margin-bottom: 8px;
+		span.day__month_btn {
+		  color: grey;
+		  //font-family: $font-Roboto;
+		  font-size: 14px;
+		  font-weight: bold;
+		  text-transform: uppercase;
+		}
+	  }
+	  div:first-of-type {
+		padding-left: 16px;
+		padding-bottom: 16px;
+	  }
+	}
+	span.cell {
+	  display: inline-block;
+	  margin: 2px;
+	  width: calc(100% / 8);
+	  height: calc(350px / 8);
+	  &.day-header {
+		font-size: 16px;
+		text-transform: uppercase;
+		//font-family: $font-Roboto;
+		color: grey;
+	  }
+	  &.day {
+		border-radius: 50%;
+		background-color: grey;
+		font-size: 14px;
+		color: white;
+		&.disabled,
+		&.blank {
+		  background-color: grey;
+		}
+	  }
+  
+	  &.selected {
+		background-color: blue !important;
+		// color: $couleur-blanc;
+	  }
+	}
+  }
+
+  #datepickerContainer {
+	display: flex;
+	.dates__input {
+	  cursor: pointer;
+	  flex-direction: column;
+	  width: 348px;
+	  height: 38px;
+	  padding-left: 22px;
+	  border-radius: 19px;
+	  border: none;
+	  &:focus {
+		outline: none;
+	  }
+	  &.error {
+		border: 1px solid red !important;
+	  }
+	}
+	span.icon--chevron {
+	  cursor: pointer;
+	  flex-direction: column;
+	  margin-top: 11px;
+	  //@include icon('../assets/icon/ic-chevron-right.svg', cover, $couleur-noir);
+	  transform: scaleX(-1) rotate(270deg);
+	  height: 16px;
+	  width: 8px;
+	  margin-left: -30px;
+		&.down {
+		  transform:rotate(90deg);
+		}
+	}
+  }

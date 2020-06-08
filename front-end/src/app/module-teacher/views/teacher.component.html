@@ -1,0 +1,174 @@
+<div class="entity">
+    <h2>{{getLabel('LABELTEACHERSMANAGEMENT')}}</h2>                 
+    <hr/>
+    <br/>
+    
+    <form #teacherForm="ngForm" novalidate="">
+     
+    <!-- SEARCH BOX -->	
+    <div *ngIf="getMode() === 'list'" class="searchBox">
+        <div class="col input-component">
+            <label for="searchDni" class="">{{getLabel('LABELDNI')}}</label>
+              <input type="text" id="searchDni" 
+                [(ngModel)]='inputSearchDni' name="searchDni" #searchDni="ngModel" 
+                maxlength="38" (change)="filterList($event)"/> 
+        </div>
+        <div class="col input-component">
+            <label for="searchName" class="">{{getLabel('LABELNAME')}}</label>
+              <input type="text" id="searchName" 
+                [(ngModel)]='inputSearchName' name="searchName" #searchName="ngModel" 
+                maxlength="38" (change)="filterList($event)"/> 
+        </div>
+        <div class="col input-component">
+            <label for="searchSurname" class="">{{getLabel('LABELSURNAME')}}</label>
+              <input type="text" id="searchSurname" 
+                [(ngModel)]='inputSearchSurname' name="searchSurname" #searchSurname="ngModel" 
+                maxlength="38" (change)="filterList($event)"/> 
+        </div>
+    </div>
+    <!-- SEARCH BOX -->	    
+
+    <!-- USER LIST -->	
+    <div class="gridList">
+      <br/>
+        <table *ngIf="getMode() === 'list'" class="">
+        <colgroup><col><col><col><col><col></colgroup>
+        <tr><th>{{getLabel('LABELDNI')}}</th><th>{{getLabel('LABELNAME')}}</th><th>{{getLabel('LABELSURNAME')}}</th><th class="btnth"></th><th class="btnth"></th></tr>
+        <tr *ngFor="let elemteacher of this.teachersArray; let i = index">
+            <ng-container *ngIf="showLinePage(i) === true && showLineFilters(i) === true">                        
+                <td>{{elemteacher.dni}}</td>
+                <td>{{elemteacher.name}}</td>
+                <td>{{elemteacher.surname}}</td>
+                <td><button class="btn btn-primary btnsmall" (click)="modifyTeacher(i);"><span>M</span></button></td>
+                <td><button class="btn btn-primary btnsmall" (click)="deleteTeacher(i);"><span>D</span></button></td>            
+            </ng-container>
+        </tr>
+        </table>
+    </div>
+    <!-- END USER LIST -->
+
+    <!-- FORM ADD UPDATE USER -->
+    <div *ngIf="getMode() === 'form'" class="linedBox">
+        <ul>        
+  
+          <!-- FORM TITTLE -->
+          <li>          
+            <div class="formtitle">
+                <div *ngIf="this.isUpdating()===true" class="divh3action"><h3>{{getLabel('LABELMODIFY')}} {{getLabel('LABELTEACHER')}}</h3></div>                
+                <div *ngIf="this.isUpdating()===false" class="divh3action"><h3>{{getLabel('LABELNEW')}} {{getLabel('LABELTEACHER')}}</h3></div>      
+                <!--<div *ngIf="teachersArray.length > 0" v-on:click="annuler()" class="icon--annuler"></div>-->
+            </div>
+          </li>
+          <!-- FIN TITRE FORMULAIRE -->        
+  
+          <!-- FIELDS HIDDENS, DNI, NAME AND SURNAME -->
+          <li>        
+            <div class="formulaire">                    
+              <!--
+                input type="hidden" name="input.index" #index="ngModel" [(ngModel)]="index" />
+                <input type="hidden" name="input.id" #id="ngModel" [(ngModel)]="id" />
+              -->
+              
+              <!--DNI-->              
+                <div class="col input-component" (click)="showLabel('dni')">
+                    <label for="inputDni" class="">{{getLabel('LABELDNI')}} *</label>
+                    <input type="text" id="inputDni"    
+                        [(ngModel)]='dni' name="inputDni" #inputDni="ngModel"
+                        maxlength="38" (focus)="showLabel('dni')" (blur)="blurLabel('dni')"/>                            
+                </div>                                           
+                <div *ngIf="this.dniEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+                <div *ngIf="this.dniNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+              <!--END DNI-->       
+              
+              <!--NAME-->              
+              <div class="col input-component" (click)="showLabel('name')">
+              <label for="inputName" class="">{{getLabel('LABELNAME')}} *</label>
+              <input type="text" id="inputName"    
+                  [(ngModel)]='name' name="inputName" #inputDni="ngModel"
+                  maxlength="38" (focus)="showLabel('name')" (blur)="blurLabel('name')"/>                            
+              </div>                                           
+              <div *ngIf="this.nameEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+              <div *ngIf="this.nameNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+            <!--END NAME-->       
+        
+              <!--SURNAME-->              
+              <div class="col input-component" (click)="showLabel('surname')">
+              <label for="inputName" class="">{{getLabel('LABELSURNAME')}} *</label>
+              <input type="text" id="inputSurname"    
+                  [(ngModel)]='surname' name="inputSurname" #inputSurname="ngModel"
+                  maxlength="38" (focus)="showLabel('surname')" (blur)="blurLabel('surname')"/>                            
+              </div>                                           
+              <div *ngIf="this.surnameEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+              <div *ngIf="this.surnameNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+            <!--END SURNAME-->      
+  
+
+              <!--SCHOOL-->                            
+              <div *ngIf="this.sessionService.isUserSuperadmin()" class="col input-component">
+                <label for="inpuNameSchool" class="">{{getLabel('LABELSCHOOL')}} *</label>
+                    <table class="tnovisual">
+                    <colgroup><col><col></colgroup>                    
+                      <tr><td>
+                        <div *ngIf="this.isSelectingSchool() === false && this.isUpdating() === true" >
+                        <input type="text" id="inpuNameSchool" disabled
+                        [(ngModel)]='nameSchool' name="inpuNameSchool" #inputIdSchool="ngModel"
+                        maxlength="38" (focus)="showLabel('nameSchool')" (blur)="blurLabel('nameSchool')"/>
+                      </div>                    
+                      <div *ngIf="this.isSelectingSchool() === true || this.isUpdating() === false" >
+                        <select [(ngModel)]="schoolSelected" name="schoolSelect">
+                          <option [ngValue]="schoolSelect" *ngFor="let schoolSelect of schoolsArray">
+                            {{schoolSelect.getName()}}
+                          </option>
+                        </select>    
+                      </div>
+                      </td>
+                      <td class="btnth">
+                        <button class="btn btn-primary btnsmall" (click)="selectSchool();"><span>M</span></button>
+                      </td></tr>
+                    </table>
+                </div>                                                       
+                <!--END SCHOOL-->  
+
+            </div>                    
+  
+            <!--BOUTON ADD-->
+            <div *ngIf="this.isUpdating() === false" class="fright">
+              <button class="btn btn-primary" (click)="addTeacher();"><span>{{getLabel('LABELSAVE')}}</span></button>      
+              <button class="btn btn-secondary" (click)="cancel();"><span>{{getLabel('LABELCANCEL')}}</span></button>  
+            </div>
+            <!--FIN BOUTON AJOUTER-->
+  
+            <!--BOUTTON UPDATE-->
+            <div *ngIf="this.isUpdating() === true" class="fright">           
+              <button class="btn btn-primary" (click)="addTeacher();"><span>{{getLabel('LABELUPDATE')}}</span></button>  
+              <button class="btn btn-secondary" (click)="cancel();"><span>{{getLabel('LABELCANCEL')}}</span></button>  
+            </div>
+            <!--END BOUTTON UPDATE-->
+
+            <br class="clear">
+  
+          </li>
+          <!-- END HIDDENS AND PASSWORD -->
+  
+        </ul>       
+      </div>
+      <!-- FIN FORM ADD UPDATE USER -->	
+
+    <!--PAGINATION-->
+    <!-- TODO -->
+    <!--END PAGINATION-->
+    
+    <!-- BOUTTON ADD NEW USER -->
+    <div class="fright">        
+      <br/>
+      <!--<button *ngIf="isShowAddNewBoutton() === true && teachersArray.length < this.MAXUSERS" class="btn btn-primary" (click)="addNewTeacher();"> -->
+          <button *ngIf="isShowAddNewBoutton() === true" class="btn btn-primary botonera" (click)="addNewTeacher();">                
+            <span class="">{{getLabel('LABELADDNEW')}} {{getLabel('LABELTEACHER')}}</span>        
+          </button>      
+    </div>
+    <br class="clear">
+    <!-- END BOUTTON ADD NEW USER -->
+
+    </form>
+
+</div>

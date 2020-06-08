@@ -1,0 +1,58 @@
+<div class="entity" style="padding-left:25px;">
+    <h2></h2>                 
+    <br/>
+
+    <form #loginForm="ngForm" novalidate="">    
+
+        <div class="linedBox">
+        <ul>
+            
+            <li>          
+                <div class="formtitle">                    
+                    <div class="divh3action"><h3>Login</h3></div>                                    
+                </div>
+            </li>
+
+            <li>
+                <div class="formulaire">      
+
+                    <!-- USERNAME -->	
+                    <div class="col input-component">
+                        <label for="inputUsername" class="">Username *</label>
+                        <input type="text" id="inputUsername" 
+                            [(ngModel)]='username' name="inputUsername" #inputUsername="ngModel"
+                            maxlength="38" (focus)="showLabel('username')" (blur)="blurLabel('username')"/>         
+                    </div>
+                    <!-- END USERNAME -->	
+                    
+                    <!-- PASSWORD -->	
+                    <div class="col input-component">
+                        <label for="inputPassword" class="">Password *</label>
+                        <input type="password" id="inputPassword" 
+                            [(ngModel)]='password' name="inputPassword" #inputPassword="ngModel"
+                            maxlength="38" (focus)="showLabel('password')" (blur)="blurLabel('password')"/>         
+                    </div>
+                    <!-- END PASSWORD -->	                                                                   
+
+                </div>
+
+                <!-- BUTTON LOGIN -->
+                <div class="fright">        
+                    <button class="btn btn-primary" (click)="login()">Login</button>
+                </div>       
+                <!-- END BUTTON LOGIN -->
+                
+                <br class="clear">         
+
+            </li>
+
+        </ul>
+        </div>
+
+    </form>
+
+    <div *ngIf="errorLogin()">
+        Login failed!
+    </div>
+
+</div>

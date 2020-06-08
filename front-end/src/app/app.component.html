@@ -1,0 +1,124 @@
+<div>
+    <table class="patternTable" >
+        <tr>
+            <!--50% MOBILE SITE-->
+        <td width="15%" valign="top" class="latMenutd" *ngIf="this.sessionService.isUserLogged() && this.isShowingMenu()">
+            <ul>            
+            <br/>
+            <li><a href="mainpane">{{getLabel('LABELOPTIONMAINPANE')}}</a></li>                        
+            <li *ngIf="this.isVisibleOptionMenu(OPTUSERS)"><a href="user">{{getLabel('LABELOPTIONUSERS')}}</a></li>       
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTSUPERADMINCONFIG)"><a href="">{{getLabel('LABELOPTIONSUPERADMINCONFIG')}}</a></li>-->
+            <hr/>
+            <li *ngIf="this.isVisibleOptionMenu(OPTKINDERGARTENS)"><a href="kindergarten">{{getLabel('LABELOPTIONKINDERGARTEN')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTSCHOOLS)"><a href="school">{{getLabel('LABELOPTIONSCHOOLS')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTCOURSES)"><a href="course">{{getLabel('LABELOPTIONCOURSES')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTGROUPS)"><a href="group">{{getLabel('LABELOPTIONGROUPS')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTTEACHERS)"><a href="teacher">{{getLabel('LABELOPTIONTEACHERS')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTSTAFF)"><a href="staff">{{getLabel('LABELOPTIONSTAFF')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTPSYCHOLOGISTS)"><a href="psychologist">{{getLabel('LABELOPTIONPSYCHOLOGISTS')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTMENUS)"><a href="menu">{{getLabel('LABELOPTIONMENUS')}}</a></li>            
+            <li *ngIf="this.isVisibleOptionMenu(OPTDISHES)"><a href="dish">{{getLabel('LABELOPTIONDISHES')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTINTOLERANCES)"><a href="intolerance">{{getLabel('LABELOPTIONINTOLERANCES')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTSTUDENTS)"><a href="student">{{getLabel('LABELOPTIONSTUDENTS')}}</a></li>            
+            <li *ngIf="this.isVisibleOptionMenu(OPTACTIVITIES)"><a href="activity">{{getLabel('LABELOPTIONACTIVITIES')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTHOMEWORKS)"><a href="homework">{{getLabel('LABELOPTIONHOMEWORKS')}}</a></li> 
+            <li *ngIf="this.isVisibleOptionMenu(OPTPARENTS)"><a href="parent">{{getLabel('LABELOPTIONPARENTS')}}</a></li>     
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTPAYMENTS)"><a href="">{{getLabel('LABELOPTIONPAYMENTS')}}</a></li> -->
+            <hr/>
+            <li *ngIf="this.isVisibleOptionMenu(OPTCOURSESENROLLMENTS)"><a href="enrollment">{{getLabel('LABELOPTIONCOURSESENROLL')}}</a></li>
+            <!--
+            <li *ngIf="this.isVisibleOptionMenu(OPTSTAFFREGISTRATION)"><a href="">{{getLabel('LABELOPTIONSTAFFREG')}}</a></li>
+            <li *ngIf="this.isVisibleOptionMenu(OPTPSYCHOLOGISTSREGISTRATION)"><a href="">{{getLabel('LABELOPTIONPSYCHOLOGISTREG')}}</a></li>
+            -->
+            <li *ngIf="this.isVisibleOptionMenu(OPTMENUASSIGNMENT)"><a href="assignment">{{getLabel('LABELOPTIONMENUASSIGNMENT')}}</a></li>
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTACTIVITIESINSCRIPTION)"><a href="">{{getLabel('LABELOPTIONACTIVITIESINSC')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTMYGROUP)"><a href="">{{getLabel('LABELOPTIONMYGROUP')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTCOURSEREGISTRATION)"><a href="courseReg">{{getLabel('LABELOPTIONCOURSEREG')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTPARENTSCHAT)"><a href="">{{getLabel('LABELOPTIONPARENTCHAT')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTTUTORCHAT)"><a href="">{{getLabel('LABELOPTIONTUTORCHAT')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTUPLOADPICTURE)"><a href="">{{getLabel('LABELOPTIONUPLOADPICTURE')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTAPPOINMENTPSYCHOLOGIST)"><a href="">{{getLabel('LABELOPTIONAPPOINTMENTPSYCHOLOGIST')}}</a></li>-->
+            <!--<li *ngIf="this.isVisibleOptionMenu(OPTAPPOINMENTTUTOR)"><a href="">{{getLabel('LABELOPTIONAPPOINTMENTTUTOR')}}</a></li>-->
+            </ul>
+            <br/> 
+        </td>
+        <td valign="top" width="3%" style="padding:0 !important;" *ngIf="this.sessionService.isUserLogged()">
+            <div class="latArrowInside" style="margin-top:20px;margin-left:0;padding:5px;height:40px; width:40px;">
+            <a (click)='hideMenu()'>
+                <img src="../assets/arrow-icon.png" width="30" alt="" style="cursor:pointer;">
+            </a>
+            </div>
+        </td>
+        <td valign="top">            
+            
+            <table class="tnovisual">
+            <tr><td>
+
+            <div class="headerEntity">        
+                
+                <div class="title">
+                    <span class="letterBlue">M</span>
+                    <span class="letterGreen">y</span>
+                    <span class="">&nbsp;</span>
+                    <span class="letterRed">P</span>
+                    <span class="letterPink">l</span>
+                    <span class="letterOrange">a</span>
+                    <span class="letterLime">y</span>
+                    <span class="letterRed">g</span>
+                    <span class="letterBlue">r</span>
+                    <span class="letterGreen">o</span>
+                    <span class="letterYellow">u</span>
+                    <span class="letterOrange">p</span>
+                </div>
+                
+                <div class="namekindergarten">
+                    <h3 *ngIf="this.sessionService.isUserLogged()">{{getNameSchool()}}</h3>
+                </div>
+
+                <div class="fright" *ngIf="this.sessionService.isUserLogged()">                       
+                    <div class="fright">  
+                        <ul class="ulh">                            
+                            <li><a style="cursor:pointer;" (click)="changeLang('ENG')"><img src="../assets/flag-english.png" alt="English version" width="16" height="11"/></a></li>                            
+                            <li><a style="cursor:pointer;" (click)="changeLang('SPA')"><img src="../assets/flag-spanish.png" alt="Spanish version" width="16" height="11"/></a></li>
+                        </ul>
+                    </div>
+                </div>                
+                <br class="clear">
+                
+                <div class="fright">
+                <ul class="ulh">
+                    <li *ngIf="this.sessionService.isUserLogged()===true">{{getUserloggedname()}}</li>
+                    <li *ngIf="this.sessionService.isUserLogged()===true"><a href="" (click)='logout()'>{{getLabel('LABELLOGOUT')}}</a></li>
+                    <li *ngIf="this.sessionService.isUserLogged()===false"><a href="login">Login</a></li>
+                </ul>
+                </div>         
+                <br *ngIf="this.sessionService.isUserLogged()===true" class="clear">
+                <hr/>       
+            
+            </div>
+            </td></tr>           
+            <tr><td>
+                <router-outlet></router-outlet>                    
+            </td></tr>
+            <tr><td>                    
+                <div class="footuni">
+                    <hr/>
+                    Universitat Oberta de Catalunya<br/>
+                    Grado en Ingenieria Informatica<br/>
+                    Trabajo Fin de Grado. 2019-20<br/>
+                    Adriano Muñoz, Jose Antonio<br/>
+                    Proyecto MyPlaygroup<br/>
+                    http://www.myplaygroup.es<br/>                
+                    <hr/>
+                </div>                       
+                
+                <div class="foot">
+                    COPYRIGHT © 2020. UNIVERSITAT OBERTA DE CATALUNYA. ALL RIGHTS RESERVERD. TFG. PROJECT: MYPLAYGROUP
+                </div>
+            </td></tr>
+            </table>
+            
+        </td>
+    </tr>
+    </table>
+</div>

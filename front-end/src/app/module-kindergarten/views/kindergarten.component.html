@@ -1,0 +1,118 @@
+<div class="entity">
+    <h2>Kindergartens management</h2>                 
+    <br/>
+    
+    <form #kindergartenForm="ngForm" novalidate="">
+     
+    <!-- SEARCH BOX -->	
+    <div *ngIf="getMode() === 'list'" class="searchBox">
+        <div class="col input-component">
+            <label for="searchName" class="">{{getLabel('LABELNAME')}}</label>
+              <input type="text" id="searchName" 
+                [(ngModel)]='inputSearchName' name="searchName" #searchName="ngModel" 
+                maxlength="38" (change)="filterList($event)"/> 
+        </div>
+    </div>
+    <!-- SEARCH BOX -->	    
+
+    <!-- USER LIST -->	
+    <div class="gridList">
+      <br/>
+        <table *ngIf="getMode() === 'list'" class="">
+        <colgroup><col><col><col><col><col></colgroup>
+        <tr><th>{{getLabel('LABELNAME')}}</th><th class="btnth"></th><th class="btnth"></th></tr>
+        <tr *ngFor="let elemkindergarten of this.kindergartensArray; let i = index">
+            <ng-container *ngIf="showLinePage(i) === true && showLineFilters(i) === true">                        
+                <td>{{elemkindergarten.name}}</td>
+                <td><button class="btn btn-primary btnsmall" (click)="modifyKindergarten(i);"><span>M</span></button></td>
+                <td><button class="btn btn-primary btnsmall" (click)="deleteKindergarten(i);"><span>D</span></button></td>            
+            </ng-container>
+        </tr>
+        </table>
+    </div>
+    <!-- END USER LIST -->
+
+    <!-- FORM ADD UPDATE USER -->
+    <div *ngIf="getMode() === 'form'" class="linedBox"> 
+        <ul>        
+  
+           <!-- FORM TITTLE -->
+           <li>          
+            <div class="formtitle">
+              <div *ngIf="this.isUpdating()===true" class="divh3action"><h3>{{getLabel('LABELMODIFY')}} kindergarten</h3></div>                
+              <div *ngIf="this.isUpdating()===false" class="divh3action"><h3>{{getLabel('LABELNEW')}} kindergarten</h3></div>                
+                <!--<div *ngIf="dishsArray.length > 0" v-on:click="annuler()" class="icon--annuler"></div>-->
+            </div>
+          </li>
+          <!-- FIN TITRE FORMULAIRE -->         
+  
+          <!-- FIELDS HIDDENS, LOGIN, PASSWORD, NAME AND SURNAME -->
+          <li>        
+            <div class="formulaire">                    
+              <!--
+                input type="hidden" name="input.index" #index="ngModel" [(ngModel)]="index" />
+                <input type="hidden" name="input.id" #id="ngModel" [(ngModel)]="id" />
+              -->
+              <!--CIF-->              
+              <div class="col input-component" (click)="showLabel('cif')">
+                <label for="inputCIF" class="">CIF *</label>
+                <input type="text" id="inputCIF"    
+                    [(ngModel)]='cif' name="inputCIF" #inputCif="ngModel"
+                    maxlength="38" (focus)="showLabel('cif')" (blur)="blurLabel('cif')"/>                            
+                </div>                                                           
+              <!--END CIF-->  
+              
+              <!--NAME-->              
+              <div class="col input-component" (click)="showLabel('name')">
+              <label for="inputName" class="">{{getLabel('LABELNAME')}} *</label>
+              <input type="text" id="inputName"    
+                  [(ngModel)]='name' name="inputName" #inputName="ngModel"
+                  maxlength="38" (focus)="showLabel('name')" (blur)="blurLabel('name')"/>                            
+              </div>                                           
+              <div *ngIf="this.nameEmptyError" class="input-error"><span>{{errorMSGEmpty}}</span></div>
+              <div *ngIf="this.nameNotCharError" class="input-error"><span>{{errorMSGChars}}</span></div>                            
+            <!--END NAME-->       
+        
+            </div>                    
+  
+            <!--BOUTON ADD-->
+            <div *ngIf="this.isUpdating() === false" class="fright">   
+              <button class="btn btn-primary" (click)="addKindergarten();"><span>{{getLabel('LABELSAVE')}}</span></button>      
+              <button class="btn btn-secondary" (click)="cancel();"><span>{{getLabel('LABELCANCEL')}}</span></button>  
+            </div>
+            <!--FIN BOUTON AJOUTER-->
+  
+            <!--BOUTTON UPDATE-->
+            <div *ngIf="this.isUpdating() === true" class="fright">        
+              <button class="btn btn-primary" (click)="addKindergarten();"><span>{{getLabel('LABELUPDATE')}}</span></button>  
+              <button class="btn btn-secondary" (click)="cancel();"><span>{{getLabel('LABELCANCEL')}}</span></button>  
+            </div>
+            <!--END BOUTTON UPDATE-->
+  
+            <br class="clear">
+
+          </li>
+          <!-- END HIDDENS, LOGIN AND PASSWORD -->
+  
+        </ul>       
+      </div>
+      <!-- FIN FORM ADD UPDATE USER -->	
+
+    <!--PAGINATION-->
+    <!-- TODO -->
+    <!--END PAGINATION-->
+    
+    <!-- BOUTTON ADD NEW USER -->
+    <div class="fright">     
+      <br/>
+      <!--<button *ngIf="isShowAddNewBoutton() === true && kindergartensArray.length < this.MAXUSERS" class="btn btn-primary" (click)="addNewKindergarten();"> -->
+          <button *ngIf="isShowAddNewBoutton() === true" class="btn btn-primary botonera" (click)="addNewKindergarten();">                
+            <span class="">{{getLabel('LABELADDNEW')}} kindergarten</span>        
+          </button>      
+    </div>
+    <br class="clear">
+    <!-- END BOUTTON ADD NEW USER -->
+
+    </form>
+
+</div>
